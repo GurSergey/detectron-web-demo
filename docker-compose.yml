@@ -1,0 +1,23 @@
+version: "3"
+
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+    client:
+        image: frontend-detectron2
+        depends_on:
+            -   backend
+        ports:
+            - "8080:80"
+        networks:
+            - app-tier
+    backend:
+        image: backend-detectron2
+        ports:
+            -  "5005:5005"
+        expose:
+            -   5005
+        networks:
+            - app-tier
